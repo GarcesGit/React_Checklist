@@ -12,11 +12,12 @@ import MyInput from './UI/input/MyInput';
           />
           <MySelect
               value={filter.sort}
-              onChange={selectedSort => setFilter({...filter, sort: selectedSort})}//вызываем функцию сортировки массива постов
+              onChange={sortedAndSearchedPosts => setFilter({...filter, sort: sortedAndSearchedPosts})}
               defaultValue='Сортировка'
               options={[
                   {value: 'title', name: 'По описанию'},
-                  {value: 'body', name: 'По срочности'}
+                  {value: 'body', name: 'По срочности'},
+                  {value: 'time', name: 'По дате'},
               ]}
           />
       </div>

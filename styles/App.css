@@ -2,8 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: url("../Pictures/8.jpg");
 }
-
 #root {
 display: flex;
 flex-direction: column;
@@ -11,25 +11,35 @@ align-items: center;
 }
 
 .App {
-  width: 600px;
+  width: 800px;
   text-align: left;
-  color: blue;
+  color: #C99C80;
+}
+
+.select {
+    color: #C99C80;
+background: #3A2314;
 }
 
 .post {
   display: flex;
-  padding: 15px;
-  border: 2px solid teal;
-  margin-top: 15px;
+  padding: 10px;
+  border: 2px solid #C99C80;
+  margin-top: 10px;
   justify-content: space-between;
   align-items: center;
 }
 
 .post_content {
-  color: red;
+  color: #E3864A;
 }
 
-.post__btns {
+.notActive {
+text-decoration: line-through;
+text-decoration-thickness: 2px;
+}
+
+.post_btn {
     display: flex;
 }
 
@@ -52,7 +62,7 @@ align-items: center;
 }
 .page {
     padding: 10px;
-    border: 1px solid teal;
+    border: 1px solid #C99C80;
     cursor: pointer;
 }
 .page__current {
@@ -82,38 +92,12 @@ align-items: center;
 	border-top: 3px solid #333;
 	box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
+
+
+
+
 /*
 my
-
-.field {
-  display: block;
-  padding: 15px;
-  border: 2px solid pink;
-  margin-top: 15px;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.active {
-  padding: 10px;
-  border: 2px solid teal;
-  margin-top: 15px;
-  background-color: lightyellow;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline ;
-}
-
-.notActive {
-  color: grey;
-  padding: 10px;
-  border: 2px solid teal;
-  margin-top: 15px;
-  background-color: lightgreen;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline ;
-}
 
 .App-header {
   background-color: #282c34;
@@ -124,5 +108,14 @@ my
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.field {
+  display: block;
+  padding: 15px;
+  border: 2px solid pink;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
 }
 */

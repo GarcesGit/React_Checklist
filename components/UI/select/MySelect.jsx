@@ -3,7 +3,7 @@ import React from 'react';
  function MySelect ({options, defaultValue, value, onChange})  {
 
 	return (
-      <select
+      <select className="select"
         value={value}
         onChange={event => onChange(event.target.value)}
       >

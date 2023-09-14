@@ -8,17 +8,20 @@ import MySelect from './components/UI/select/MySelect';
 import MyInput from './components/UI/input/MyInput';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
+import MyButton from './components/UI/button/MyButton';
 
+function id() {
+  return uuid();
+  }
 
 function App() {
 	const [posts, setPosts] = useState([
-		{id: 1, title: 'ЗадачаААА', body: 'Срочность222'},
-		{id: 2, title: 'ЗадачаБББ', body: 'Срочность333'},
-		{id: 3, title: 'ЗадачаВВВ', body: 'Срочность111'},
-	]);
+		{id: id(), title: 'Нажмите для редактирования задачи', body: 'Срочность', time: 'Время', isCompleted: false},
+]);
 
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	const [modal, setModal] = useState(false);
+
 
 	const sortedPosts =  useMemo( () => {
 		if(filter.sort){
@@ -28,7 +31,7 @@ function App() {
 	}, [filter.sort, posts] );
 
 	const sortedAndSearchedPosts =  useMemo( () => {
-		return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase())) //поиск по названию поста
+		return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
 	}, [filter.query, sortedPosts])
 
 	const createPost = (newPost) => {
@@ -36,23 +39,41 @@ function App() {
 		setModal(false)
 }
 
-	const removePost = (post) => {// Получаем пост из дочернего компонета
+	const removePost = (post) => {
 		setPosts(posts.filter(p => p.id !==post.id))
 	}
 
 
+////
+const completePost = (post) => {
+	setPosts([...posts].map(p => {
+		if (p.id === post.id) {
+			p.isCompleted = !p.isCompleted;
+		}
+		return p ;
+	}));
+}
+
+////
+
 	return	(
 	<div className = "App">
-		<PostForm create={createPost}/>
+		<MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
+			Создать задачу
+		</MyButton>
+
+		<MyModal visible={modal} setVisible={setModal}>
+			<PostForm create={createPost} />
+		</MyModal>
 
 		<PostFilter
 			filter={filter}
 			setFilter={setFilter}
 		/>
 
-		<hr class="hr-shadow"/>
-		<PostList remove={removePost} posts= {sortedAndSearchedPosts} title = 'Список задач'/>
+		<hr className="hr-shadow"/>
 
+		<PostList complete={completePost} remove={removePost} posts={sortedAndSearchedPosts} title = 'Список задач'/>
 
 	</div>
 	)
