@@ -1,7 +1,7 @@
 .myInp {
     width: 100%;
     padding: 5px 15px;
-    margin: 5px 0;
-    border: 2px solid #C99C80;
+    margin: 5px auto;
+    border: 1px solid #C99C80;
     color: #E3864A;
 }

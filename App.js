@@ -1,5 +1,4 @@
-import React, {useMemo, useRef, useState } from 'react';
-import uuid from 'react-uuid';
+import React, {useEffect, useMemo, useRef, useState } from 'react';
 import PostItem from './components/PostItem';
 import './styles/App.css';
 import PostList from './components/PostList';
@@ -10,19 +9,33 @@ import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 import MyButton from './components/UI/button/MyButton';
 
-function id() {
-  return uuid();
-  }
-
 function App() {
-	const [posts, setPosts] = useState([
-		{id: id(), title: 'Нажмите для редактирования задачи', body: 'Срочность', time: 'Время', isCompleted: false},
-]);
-
+	const [posts, setPosts] = useState([]);
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	const [modal, setModal] = useState(false);
 
+//создание
+	const createPost = (newPost) => {
+		setPosts([...posts, newPost])
+		setModal(false)
+	}
 
+//удаление
+	const removePost = (post) => {
+		setPosts(posts.filter(p => p.id !==post.id))
+	}
+
+//завершение
+	const completePost = (post) => {
+		setPosts([...posts].map(p => {
+			if (p.id === post.id) {
+				p.isCompleted = !p.isCompleted;
+			}
+			return p ;
+		}));
+	}
+
+//сортировка
 	const sortedPosts =  useMemo( () => {
 		if(filter.sort){
 			return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
@@ -30,31 +43,44 @@ function App() {
 		return posts;
 	}, [filter.sort, posts] );
 
+//поиск
 	const sortedAndSearchedPosts =  useMemo( () => {
 		return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
 	}, [filter.query, sortedPosts])
 
-	const createPost = (newPost) => {
-		setPosts([...posts, newPost])
-		setModal(false)
-}
+//сохранение
+	React.useEffect(() => {
+	 const json = localStorage.getItem("posts");
+	 const loadedPosts = JSON.parse(json);
+	 if (loadedPosts) {
+	   setPosts(loadedPosts);
+	 }
+	}, []);
 
-	const removePost = (post) => {
-		setPosts(posts.filter(p => p.id !==post.id))
+	React.useEffect(() => {
+	 const json = JSON.stringify(posts);
+	 localStorage.setItem("posts", json);
+	}, [posts]);
+
+//редактирование
+	const toggleMode = (post) => {
+		setPosts(posts.map(p => {
+			if (p.id === post.id) {
+				p.isEdit = !p.isEdit;
+			}
+			return p;
+		}));
 	}
 
+	const editPost = (id, field, event) => { ///////////
+		setPosts(posts.map(post => {
+			if (post.id === id) {
+				post[field] = event.target.value;
+			}
 
-////
-const completePost = (post) => {
-	setPosts([...posts].map(p => {
-		if (p.id === post.id) {
-			p.isCompleted = !p.isCompleted;
-		}
-		return p ;
-	}));
-}
-
-////
+			return post;
+		}));
+	}
 
 	return	(
 	<div className = "App">
@@ -73,8 +99,7 @@ const completePost = (post) => {
 
 		<hr className="hr-shadow"/>
 
-		<PostList complete={completePost} remove={removePost} posts={sortedAndSearchedPosts} title = 'Список задач'/>
-
+		<PostList toggleMode={toggleMode} editPost={editPost} complete={completePost} remove={removePost} posts={sortedAndSearchedPosts} title = 'Список задач'/>
 	</div>
 	)
 }

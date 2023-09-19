@@ -10,7 +10,7 @@ import MySelect from '../components/UI/select/MySelect';
  	return uuid();
  	}
 
-   const [post, setPost] = useState({title:'', body:'', time: '', isCompleted: false})
+   const [post, setPost] = useState({title:'', body:'', time: '', isCompleted: false, isEdit: false})
    const [selectValue, setSelectValue] = useState('');
 
 
@@ -18,7 +18,7 @@ import MySelect from '../components/UI/select/MySelect';
       event.preventDefault()
       const newPost = {...post, id: id() }
       create(newPost)
- 	  setPost({title:'', body:'', time:'', isCompleted: false})
+ 	  setPost({title:'', body:'', time:'', isCompleted: false, isEdit: false})
       setSelectValue('');
  	}
 
@@ -42,7 +42,7 @@ import MySelect from '../components/UI/select/MySelect';
     }
 
 	return (
-    <form>
+    <form className = 'postForm'>
 
   		<MyInput
   				value={post.title}

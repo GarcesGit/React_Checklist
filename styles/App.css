@@ -5,9 +5,9 @@
   background: url("../Pictures/8.jpg");
 }
 #root {
-display: flex;
-flex-direction: column;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .App {
@@ -16,9 +16,18 @@ align-items: center;
   color: #C99C80;
 }
 
+.postForm {
+    padding: 15px 15px;
+
+}
 .select {
     color: #C99C80;
-background: #3A2314;
+    background: #3A2314;
+}
+
+.input {
+    width: 400px;
+    color: #C99C80;
 }
 
 .post {
@@ -32,6 +41,17 @@ background: #3A2314;
 
 .post_content {
   color: #E3864A;
+}
+
+.post_content_time{
+    display: flex;
+    margin-left: 18px;
+    margin-top: 5px;
+    color: #C99C80;
+}
+
+.post_content_time_each{
+    width: 200px;
 }
 
 .notActive {

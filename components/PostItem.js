@@ -7,19 +7,27 @@ import MyButton from './UI/button/MyButton';
 	return (
     <div className = "post">
         <div className = {props.isCompleted ? 'notActive' : 'post_content'}>
-			<strong> {props.number}. {props.post.title} </strong>
-            <div>
-                {props.post.body}
-            </div>
-            <div>
-                {props.post.time}
+
+            <strong> {props.number}. </strong>
+            {props.isEdit
+            ? <input className ='input' value={props.post.title} onChange={event => props.editPost(props.post)} />
+            : <strong>{props.post.title}</strong>
+            }
+
+            <div className = "post_content_time">
+                <div className = "post_content_time_each">
+                    {props.post.body}
+                </div>
+                <div className = "post_content_time_each">
+                    {props.post.time}
+                </div>
             </div>
 		</div>
 
 		<div className = "post_btn">
 			<MyButton   style = {{color: 'orange'}}
-                        onClick={()=> props.edit(props.post)}>
-                        &#9998;
+                        onClick={()=> props.toggleMode(props.post)}>
+                        {props.isEdit ? 'save': 'edit'}
             </MyButton>
             <MyButton   style = {{color: 'green'}}
                         onClick={()=> props.complete(props.post)}>
