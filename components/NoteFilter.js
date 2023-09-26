@@ -2,7 +2,7 @@ import React from 'react';
 import MySelect from './UI/select/MySelect';
 import MyInput from './UI/input/MyInput';
 
- function PostFilter ({filter, setFilter})  {
+ function NoteFilter ({filter, setFilter})  {
 	return (
       <div>
           <MyInput
@@ -12,7 +12,7 @@ import MyInput from './UI/input/MyInput';
           />
           <MySelect
               value={filter.sort}
-              onChange={sortedAndSearchedPosts => setFilter({...filter, sort: sortedAndSearchedPosts})}
+              onChange={sortedAndSearchedNotes => setFilter({...filter, sort: sortedAndSearchedNotes})}
               defaultValue='Сортировка'
               options={[
                   {value: 'title', name: 'По описанию'},
@@ -24,4 +24,4 @@ import MyInput from './UI/input/MyInput';
 )
 }
 
-export default PostFilter;
+export default NoteFilter;

@@ -4,28 +4,27 @@ import MyButton from './UI/button/MyButton';
 import MyInput from './UI/input/MyInput';
 import MySelect from '../components/UI/select/MySelect';
 
- function PostForm ({create})  {
+ function NoteForm ({create})  {
 
-  function id() {
- 	return uuid();
- 	}
+    function id() {
+        return uuid();
+    }
 
-   const [post, setPost] = useState({title:'', body:'', time: '', isCompleted: false, isEdit: false})
+   const [note, setNote] = useState({title:'', body:'', time: '', isCompleted: false, isEdit: false})
    const [selectValue, setSelectValue] = useState('');
 
-
-   function addNewPost(event) {
+   function addNewNote(event) {
       event.preventDefault()
-      const newPost = {...post, id: id() }
-      create(newPost)
- 	  setPost({title:'', body:'', time:'', isCompleted: false, isEdit: false})
+      const newNote = {...note, id: id() }
+      create(newNote)
+ 	  setNote({title:'', body:'', time:'', isCompleted: false, isEdit: false})
       setSelectValue('');
  	}
 
     function selectChange(event) {
         setSelectValue(event.target.value);
-        setPost({...post, body: event.target.value})
- }
+        setNote({...note, body: event.target.value})
+    }
 
     function setTime(time) {
     	let date = new Date();
@@ -34,22 +33,22 @@ import MySelect from '../components/UI/select/MySelect';
     }
 
     function addZero(num) {
-     if (num >= 0 && num <= 9) {
-    	 return '0' + num;
-     } else {
-    	 return num;
-     }
+        if (num >= 0 && num <= 9) {
+         return '0' + num;
+        } else {
+         return num;
+        }
     }
 
 	return (
-    <form className = 'postForm'>
+    <form className = 'noteForm'>
 
   		<MyInput
-  				value={post.title}
-  				onChange={event => setPost({...post, title:event.target.value, time: setTime()})}
+  				value={note.title}
+  				onChange={event => setNote({...note, title:event.target.value, time: setTime()})}
   				type = 'text'
   		        placeholder = 'Описание задачи'
-      />
+        />
 
         <div >
             <label> Установите срочность события:
@@ -67,10 +66,10 @@ import MySelect from '../components/UI/select/MySelect';
             {setTime}
         </div>
 
-        <MyButton onClick={addNewPost}>Создать задачу</MyButton>
+        <MyButton onClick={addNewNote}>Создать задачу</MyButton>
 
 	</form>
 )
 }
 
-export default PostForm;
+export default NoteForm;
